@@ -1,0 +1,64 @@
+[
+  {
+    "model": "programs.program",
+    "pk": 1,
+    "fields": {
+      "name": "Leadership Development"
+    }
+  },
+  {
+    "model": "programs.program",
+    "pk": 2,
+    "fields": {
+      "name": "Cognitive Behavioral Therapy"
+    }
+  },
+  {
+    "model": "programs.section",
+    "pk": 1,
+    "fields": {
+      "name": "Explore your strengths and weaknesses",
+      "program": 1
+    }
+  },
+  {
+    "model": "programs.section",
+    "pk": 2,
+    "fields": {
+      "name": "Learn to let go",
+      "program": 1
+    }
+  },
+  {
+    "model": "programs.section",
+    "pk": 3,
+    "fields": {
+      "name": "Walking down memory lane",
+      "program": 2
+    }
+  },
+  {
+    "model": "programs.section",
+    "pk": 4,
+    "fields": {
+      "name": "Self Awareness",
+      "program": 2
+    }
+  },
+  {
+    "model": "programs.activity",
+    "pk": 1,
+    "fields": {
+      "name": "Meditate",
+      "section": 1
+    }
+  },
+  {
+    "model": "programs.activity",
+    "pk": 2,
+    "fields": {
+      "name": "5 minute journal",
+      "section": 2
+    }
+  }
+]
