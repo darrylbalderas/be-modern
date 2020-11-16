@@ -18,3 +18,7 @@ python manage.py loaddata programs
 - Can activites be used in multiple sections ?
 - Is there any image extension we are limited ?
 - Is your postgres hosted on AWS ? Aurora ?
+
+## Resources
+
+- ['Build small docker images'](https://towardsdatascience.com/how-to-build-slim-docker-images-fast-ecc246d7f4a7)

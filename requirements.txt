@@ -1,5 +1,6 @@
 django
 graphene-django
 Pillow
-mixer
-coverage
+psycopg2-binary    
+uvicorn[standard]
+gunicorn

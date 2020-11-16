@@ -1,0 +1,27 @@
+version: "3.3"
+services:
+  database:
+    image: postgres # use latest official postgres version
+    container_name: postgres
+    ports:
+      - 5432:5432
+      - 5000:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=programs
+    volumes:
+      - db:/var/lib/postgresql/data/ # persist data even if container shuts down
+  # backend:
+  #   build: .
+  #   container_name: backend
+  #   ports:
+  #     - 8000:8000
+  #   environment:
+  #     - "DB_NAME=programs"
+  #     - "DB_USER=postgres"
+  #     - "DB_PASSWORD=postgres"
+  #     - "DB_HOST=database"
+  #     - "DB_PORT=5432"
+  #   depends_on:
+  #     - database

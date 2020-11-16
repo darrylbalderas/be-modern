@@ -24,7 +24,7 @@ SECRET_KEY = 'r)2f_jkp45g%71fim39-g#wbv!&k#w@*4l!m#($wit&izok=g9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 GRAPHENE = {"SCHEMA": "modern_catalog.schema.schema"}
 
