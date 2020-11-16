@@ -22,3 +22,5 @@ python manage.py loaddata programs
 ## Resources
 
 - ['Build small docker images'](https://towardsdatascience.com/how-to-build-slim-docker-images-fast-ecc246d7f4a7)
+- [''](https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/uvicorn/)
+- [](https://www.uvicorn.org/)

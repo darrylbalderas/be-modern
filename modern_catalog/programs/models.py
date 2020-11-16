@@ -1,14 +1,4 @@
 from django.db import models
-# from enum import IntEnum
-
-# Create your models here.
-# class ActivityChoices(IntEnum):
-#     CUSTOMER = 1
-
-#     @classmethod
-#     def choices(cls):
-#         return [(key.value, key.name) for key in cls]
-
 
 class Program(models.Model):
     name = models.CharField(max_length=100)
