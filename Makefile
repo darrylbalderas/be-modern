@@ -7,3 +7,7 @@ dev-start:
 	@gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
 dev-stop:
 	@docker-compose  --remove-orphans -v
+unittest:
+	@export DJANGO_ENVIRONMENT=test
+	@python manage.py test
+

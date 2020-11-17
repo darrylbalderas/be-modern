@@ -22,7 +22,8 @@
       "name": "Explore your strengths and weaknesses",
       "program": 1,
       "description": "",
-      "order_index": 1
+      "order_index": 1,
+      "overview_image": "http://d111111abcdef8.cloudfront.net/image.jpg"
     }
   },
   {
@@ -32,7 +33,8 @@
       "name": "Learn to let go",
       "program": 1,
       "description": "",
-      "order_index": 2
+      "order_index": 2,
+      "overview_image": "http://d111111abcdef8.cloudfront.net/image.jpg"
     }
   },
   {
@@ -42,7 +44,8 @@
       "name": "Walking down memory lane",
       "program": 2,
       "description": "",
-      "order_index": 3
+      "order_index": 3,
+      "overview_image": "http://d111111abcdef8.cloudfront.net/image.jpg"
     }
   },
   {
@@ -52,7 +55,8 @@
       "name": "Self Awareness",
       "program": 2,
       "description": "",
-      "order_index": 4
+      "order_index": 4,
+      "overview_image": "http://d111111abcdef8.cloudfront.net/image.jpg"
     }
   },
   {

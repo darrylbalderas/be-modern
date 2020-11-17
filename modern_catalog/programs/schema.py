@@ -6,16 +6,19 @@ from modern_catalog.programs.models import Program, Section, Activity
 class ProgramType(DjangoObjectType):
     class Meta:
         model = Program
+        fields = "__all__"
 
 
 class SectionType(DjangoObjectType):
     class Meta:
         model = Section
+        fields = "__all__"
 
 
 class ActivityType(DjangoObjectType):
     class Meta:
         model = Activity
+        fields = "__all__"
 
 
 class Query(graphene.ObjectType):
@@ -26,7 +29,7 @@ class Query(graphene.ObjectType):
 
     def resolve_sections(root, info):
         # We can easily optimize query count in the resolve method
-        return Section.objects.select_related("program").all()
+        return Section.objects.select_related("program").all().order_by('order_index')
 
     def resolve_activities(root, info):
         # We can easily optimize query count in the resolve method

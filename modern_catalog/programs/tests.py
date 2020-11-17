@@ -4,8 +4,6 @@
 import json
 from graphene_django.utils.testing import GraphQLTestCase
 from modern_catalog.schema import schema
-from mixer.backend.django import mixer
-from modern_catalog.programs.models import Program, Section, Activity
 
 
 class TestPrograms(GraphQLTestCase):
@@ -15,7 +13,7 @@ class TestPrograms(GraphQLTestCase):
     def test_all_sections(self):
         query = '''
             query {
-                allSections {
+                sections {
                     id
                     name
                 }
@@ -25,10 +23,9 @@ class TestPrograms(GraphQLTestCase):
         content = json.loads(response.content)
 
         # This validates the status code and if you get errors
-        self.assertResponseNoErrors(response)
         expected = {
             'data': {
-                'allSections': [{
+                'sections': [{
                     'id': '1',
                     'name': 'Explore your strengths and weaknesses'
                 }, {
@@ -43,12 +40,14 @@ class TestPrograms(GraphQLTestCase):
                 }]
             }
         }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
 
     def test_all_activities(self):
         query = '''
             query {
-                allActivities {
+                activities {
                     id
                     name
                 }
@@ -58,7 +57,7 @@ class TestPrograms(GraphQLTestCase):
         content = json.loads(response.content)
         expected = {
             'data': {
-                'allActivities': [{
+                'activities': [{
                     'id': '1',
                     'name': 'Meditate'
                 }, {
@@ -67,6 +66,33 @@ class TestPrograms(GraphQLTestCase):
                 }]
             }
         }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_all_programs(self):
+        query = '''
+            query {
+                programs {
+                    id
+                    name
+                }
+            }
+            '''
+        response = self.query(query)
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'programs': [{
+                    'id': '1',
+                    'name': 'Leadership Development'
+                }, {
+                    'id': '2',
+                    'name': 'Cognitive Behavioral Therapy'
+                }]
+            }
+        }
+        self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
 
@@ -90,5 +116,6 @@ class TestPrograms(GraphQLTestCase):
                 }
             }
         }
+        self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)

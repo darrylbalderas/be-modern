@@ -12,6 +12,7 @@ class Program(models.Model):
 class Section(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+    overview_image = models.URLField(blank=True)
     order_index = models.IntegerField(null=True)
     program = models.ForeignKey(Program,
                                 related_name="sections",
