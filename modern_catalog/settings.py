@@ -74,14 +74,7 @@ WSGI_APPLICATION = 'modern_catalog.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES_AVAILABLE = {
-    'staging': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'database',
-    },
-    'production': {
+    'main': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
@@ -94,18 +87,8 @@ DATABASES_AVAILABLE = {
     },
 }
 
-database = os.environ.get('DJANGO_ENVIRONMENT', 'production')
+database = os.environ.get('DJANGO_ENVIRONMENT', 'main')
 DATABASES = {'default': DATABASES_AVAILABLE[database]}
-
-# DATABASES = {
-#     'default': {
-
-#     },
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.sqlite3',
-#     #     'NAME': BASE_DIR / 'db.sqlite3',
-#     # }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

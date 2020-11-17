@@ -8,14 +8,17 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Program',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('description', models.TextField()),
             ],
@@ -23,21 +26,33 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Section',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('description', models.TextField()),
                 ('overview_image', models.ImageField(upload_to='')),
                 ('order_index', models.IntegerField()),
-                ('program', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='programs.program')),
+                ('program',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to='programs.program')),
             ],
         ),
         migrations.CreateModel(
             name='Activity',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('html_content', models.TextField()),
-                ('section', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='programs.section')),
+                ('section',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to='programs.section')),
             ],
         ),
     ]

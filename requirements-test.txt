@@ -1,2 +1,3 @@
 mixer
-coverage  
+coverage
+flake8

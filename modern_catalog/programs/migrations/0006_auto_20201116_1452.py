@@ -14,11 +14,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='activity',
             name='section',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='activities', to='programs.section'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='activities',
+                                    to='programs.section'),
         ),
         migrations.AlterField(
             model_name='section',
             name='program',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sections', to='programs.program'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='sections',
+                                    to='programs.program'),
         ),
     ]
