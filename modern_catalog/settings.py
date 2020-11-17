@@ -86,7 +86,7 @@ DATABASES_AVAILABLE = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'database',
+        'HOST': 'localhost',
     },
     'test': {
         'ENGINE': 'django.db.backends.sqlite3',

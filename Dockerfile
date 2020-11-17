@@ -28,5 +28,6 @@ COPY --from=builder /app/manage.py /app/manage.py
 WORKDIR /app
 EXPOSE 8000
 ENV PATH=/root/.local/bin:$PATH
-ENTRYPOINT gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
+# ENTRYPOINT gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
+ENTRYPOINT gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
 

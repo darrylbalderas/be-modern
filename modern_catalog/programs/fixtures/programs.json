@@ -3,14 +3,16 @@
     "model": "programs.program",
     "pk": 1,
     "fields": {
-      "name": "Leadership Development"
+      "name": "Leadership Development",
+      "description": ""
     }
   },
   {
     "model": "programs.program",
     "pk": 2,
     "fields": {
-      "name": "Cognitive Behavioral Therapy"
+      "name": "Cognitive Behavioral Therapy",
+      "description": ""
     }
   },
   {
@@ -18,7 +20,9 @@
     "pk": 1,
     "fields": {
       "name": "Explore your strengths and weaknesses",
-      "program": 1
+      "program": 1,
+      "description": "",
+      "order_index": 1
     }
   },
   {
@@ -26,7 +30,9 @@
     "pk": 2,
     "fields": {
       "name": "Learn to let go",
-      "program": 1
+      "program": 1,
+      "description": "",
+      "order_index": 2
     }
   },
   {
@@ -34,7 +40,9 @@
     "pk": 3,
     "fields": {
       "name": "Walking down memory lane",
-      "program": 2
+      "program": 2,
+      "description": "",
+      "order_index": 3
     }
   },
   {
@@ -42,7 +50,9 @@
     "pk": 4,
     "fields": {
       "name": "Self Awareness",
-      "program": 2
+      "program": 2,
+      "description": "",
+      "order_index": 4
     }
   },
   {
@@ -50,7 +60,8 @@
     "pk": 1,
     "fields": {
       "name": "Meditate",
-      "section": 1
+      "section": 1,
+      "content": ""
     }
   },
   {
@@ -58,7 +69,8 @@
     "pk": 2,
     "fields": {
       "name": "5 minute journal",
-      "section": 2
+      "section": 2,
+      "content": ""
     }
   }
 ]
