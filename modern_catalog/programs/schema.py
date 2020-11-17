@@ -42,7 +42,7 @@ class Query(graphene.ObjectType):
         try:
             return Program.objects.get(name=name)
         except Program.DoesNotExist:
-            return None
+            return Program.objects.none()
 
 
 schema = graphene.Schema(query=Query)

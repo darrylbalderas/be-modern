@@ -8,6 +8,9 @@ class Program(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name', )
+
 
 class Section(models.Model):
     name = models.CharField(max_length=100)
@@ -21,6 +24,9 @@ class Section(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('order_index', )
+
 
 class Activity(models.Model):
     name = models.CharField(max_length=100)
@@ -31,3 +37,6 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ('name', )

@@ -9,5 +9,6 @@ dev-stop:
 	@docker-compose  --remove-orphans -v
 unittest:
 	@export DJANGO_ENVIRONMENT=test
+	@flake8 --max-line-length=88
 	@python manage.py test
 

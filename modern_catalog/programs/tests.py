@@ -10,7 +10,7 @@ class TestPrograms(GraphQLTestCase):
     GRAPHQL_SCHEMA = schema
     fixtures = ['programs.json']
 
-    def test_all_sections(self):
+    def test_sections(self):
         query = '''
             query {
                 sections {
@@ -44,7 +44,7 @@ class TestPrograms(GraphQLTestCase):
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
 
-    def test_all_activities(self):
+    def test_activities(self):
         query = '''
             query {
                 activities {
@@ -58,11 +58,11 @@ class TestPrograms(GraphQLTestCase):
         expected = {
             'data': {
                 'activities': [{
-                    'id': '1',
-                    'name': 'Meditate'
-                }, {
                     'id': '2',
                     'name': '5 minute journal'
+                }, {
+                    'id': '1',
+                    'name': 'Meditate'
                 }]
             }
         }
@@ -84,11 +84,11 @@ class TestPrograms(GraphQLTestCase):
         expected = {
             'data': {
                 'programs': [{
-                    'id': '1',
-                    'name': 'Leadership Development'
-                }, {
                     'id': '2',
                     'name': 'Cognitive Behavioral Therapy'
+                }, {
+                    'id': '1',
+                    'name': 'Leadership Development'
                 }]
             }
         }
