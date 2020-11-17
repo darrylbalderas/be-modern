@@ -96,26 +96,60 @@ class TestPrograms(GraphQLTestCase):
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
 
-    def test_program_by_name(self):
+    def test_program(self):
         query = '''
-                query programByName($name: String!) {
-                    programByName(name: $name) {
+                query getProgram($id: Int!) {
+                    program(id: $id) {
                         id
                         name
                     }
                 }
                 '''
-        response = self.query(query, variables={'name': 'Leadership Development'})
+        response = self.query(query, variables={'id': 1})
+        content = json.loads(response.content)
+
+        expected = {'data': {'program': {'id': '1', 'name': 'Leadership Development'}}}
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_section(self):
+        query = '''
+                query getSection($id: Int!) {
+                    section(id: $id) {
+                        id
+                        name
+                    }
+                }
+                '''
+        response = self.query(query, variables={'id': 1})
         content = json.loads(response.content)
 
         expected = {
             'data': {
-                'programByName': {
+                'section': {
                     'id': '1',
-                    'name': 'Leadership Development'
+                    'name': 'Explore your strengths and weaknesses'
                 }
             }
         }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_activity(self):
+        query = '''
+                query getActivity($id: Int!) {
+                    activity(id: $id) {
+                        id
+                        name
+                    }
+                }
+                '''
+        response = self.query(query, variables={'id': 1})
+        content = json.loads(response.content)
+
+        expected = {'data': {'activity': {'id': '1', 'name': 'Meditate'}}}
         self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
