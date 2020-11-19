@@ -488,3 +488,127 @@ class TestPrograms(GraphQLTestCase):
         self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
+
+    def test_delete_program(self):
+        response = self.query('''
+                mutation deleteProgram($id: Int!) {
+                    deleteProgram(id: $id) {
+                        ok
+                        program {
+                            id
+                            name
+                        }
+                    }
+                }
+                ''',
+                              op_name='deleteProgram',
+                              variables={'id': 2})
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'deleteProgram': {
+                    'ok': True,
+                    'program': {
+                        'id': '2',
+                        'name': 'Cognitive Behavioral Therapy',
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+        response = self.query('''
+                query getProgram($id: Int!) {
+                    program(id: $id) {
+                        id
+                        name
+                    }
+                }
+                ''',
+                              op_name='getProgram',
+                              variables={'id': 2})
+        content = json.loads(response.content)
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, {'data': {'program': None}})
+
+    def test_delete_nonexisten_program(self):
+        response = self.query('''
+                    mutation deleteProgram($id: Int!) {
+                        deleteProgram(id: $id) {
+                            ok
+                            program {
+                                id
+                                name
+                            }
+                        }
+                    }
+                    ''',
+                              op_name='deleteProgram',
+                              variables={'id': 100})
+        content = json.loads(response.content)
+        expected = {'data': {'deleteProgram': {'ok': False, 'program': None}}}
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_update_program(self):
+        response = self.query('''
+                mutation updateProgram($id: Int!, $input: ProgramInput!) {
+                    updateProgram(id: $id, input: $input) {
+                        ok
+                        program {
+                            id
+                            name
+                        }
+                    }
+                }
+                ''',
+                              op_name='updateProgram',
+                              variables={
+                                  'id': 2,
+                                  'input': {
+                                      'name': '6 minute journal',
+                                  }
+                              })
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'updateProgram': {
+                    'ok': True,
+                    'program': {
+                        'id': '2',
+                        'name': '6 minute journal',
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_update_nonexisten_program(self):
+        response = self.query('''
+                mutation updateProgram($id: Int!, $input: ProgramInput!) {
+                    updateProgram(id: $id, input: $input) {
+                        ok
+                        program {
+                            id
+                            name
+                        }
+                    }
+                }
+                    ''',
+                              op_name='updateProgram',
+                              variables={
+                                  'id': 100,
+                                  'input': {
+                                      'name': '6 minute journal',
+                                  }
+                              })
+        content = json.loads(response.content)
+        expected = {'data': {'updateProgram': {'ok': False, 'program': None}}}
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)

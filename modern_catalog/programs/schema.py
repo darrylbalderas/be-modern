@@ -1,5 +1,6 @@
 from modern_catalog.programs.types import ActivityType, ProgramType, SectionType
 from modern_catalog.programs.mutations import CreateActivity, CreateProgram
+from modern_catalog.programs.mutations import DeleteProgram, UpdateProgram
 from modern_catalog.programs.mutations import DeleteActivity, DeleteSection
 from modern_catalog.programs.mutations import UpdateActivity, CreateSection
 import graphene
@@ -56,6 +57,8 @@ class Mutation(graphene.ObjectType):
     create_section = CreateSection.Field()
     delete_section = DeleteSection.Field()
     create_program = CreateProgram.Field()
+    delete_program = DeleteProgram.Field()
+    update_program = UpdateProgram.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

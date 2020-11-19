@@ -147,3 +147,47 @@ class CreateProgram(graphene.Mutation):
         program_instance = Program(name=input.name, description=input.description)
         program_instance.save()
         return CreateProgram(ok=True, program=program_instance)
+
+
+class DeleteProgram(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+
+    ok = graphene.Boolean()
+    program = graphene.Field(ProgramType)
+
+    @staticmethod
+    def mutate(root, info, id):
+        try:
+            program_instance = Program.objects.get(pk=id)
+        except Program.DoesNotExist:
+            return DeleteProgram(ok=False, program=None)
+        program_instance.delete()
+        program_instance.id = id
+        return DeleteProgram(ok=True, program=program_instance)
+
+
+class UpdateProgram(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+        input = ProgramInput(required=True)
+
+    ok = graphene.Boolean()
+    program = graphene.Field(ProgramType)
+
+    @staticmethod
+    def mutate(root, info, id, input=None):
+        try:
+            program_instance = Program.objects.get(pk=id)
+        except Program.DoesNotExist:
+            return UpdateProgram(ok=False, program=None)
+
+        if input.description:
+            program_instance.content = input.content
+
+        if input.name:
+            program_instance.name = input.name
+
+        program_instance.save()
+
+        return UpdateProgram(ok=True, program=program_instance)
