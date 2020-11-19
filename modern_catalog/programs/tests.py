@@ -50,6 +50,8 @@ class TestPrograms(GraphQLTestCase):
                 activities {
                     id
                     name
+                    content
+                    choices
                 }
             }
             '''
@@ -59,10 +61,26 @@ class TestPrograms(GraphQLTestCase):
             'data': {
                 'activities': [{
                     'id': '2',
-                    'name': '5 minute journal'
+                    'name': '5 minute journal',
+                    'content': '',
+                    'choices': None
+                }, {
+                    'id':
+                    '3',
+                    'name':
+                    '6 minute mediation',
+                    'content':
+                    None,
+                    'choices':
+                    '{"How do you want to use mindfulness": '
+                    '[{"name": "Increase focus", "selected": '
+                    'false}, {"name": "Reduce Stress", '
+                    '"selected": true}]}'
                 }, {
                     'id': '1',
-                    'name': 'Meditate'
+                    'name': 'Meditate',
+                    'content': '',
+                    'choices': None
                 }]
             }
         }
@@ -143,13 +161,24 @@ class TestPrograms(GraphQLTestCase):
                     activity(id: $id) {
                         id
                         name
+                        content
+                        choices
                     }
                 }
                 '''
         response = self.query(query, variables={'id': 1})
         content = json.loads(response.content)
 
-        expected = {'data': {'activity': {'id': '1', 'name': 'Meditate'}}}
+        expected = {
+            'data': {
+                'activity': {
+                    'id': '1',
+                    'name': 'Meditate',
+                    'content': '',
+                    'choices': None
+                }
+            }
+        }
         self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
@@ -163,6 +192,7 @@ class TestPrograms(GraphQLTestCase):
                         id
                         name
                         content
+                        choices
                     }
                 }
             }
@@ -172,9 +202,12 @@ class TestPrograms(GraphQLTestCase):
                                   'name': 'Be vulnerable',
                                   'content':
                                   '<p> 3 things you love about yourself </p>',
-                                  'sections': [{
-                                      'id': 1
-                                  }]
+                                  'sections': [
+                                      {
+                                          'id': 1
+                                      },
+                                  ],
+                                  'choices': None
                               })
         content = json.loads(response.content)
         expected = {
@@ -182,9 +215,10 @@ class TestPrograms(GraphQLTestCase):
                 'createActivity': {
                     'ok': True,
                     'activity': {
-                        'id': '3',
+                        'id': '4',
                         'name': 'Be vulnerable',
-                        'content': '<p> 3 things you love about yourself </p>'
+                        'content': '<p> 3 things you love about yourself </p>',
+                        'choices': None
                     }
                 }
             }

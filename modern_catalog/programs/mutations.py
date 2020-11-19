@@ -22,6 +22,7 @@ class ActivityInput(graphene.InputObjectType):
     id = graphene.ID()
     name = graphene.String()
     content = graphene.String()
+    choices = graphene.String()
     sections = graphene.List(SectionInput)
 
 

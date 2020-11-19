@@ -1,10 +1,10 @@
+import graphene
 from modern_catalog.programs.types import ActivityType, ProgramType, SectionType
 from modern_catalog.programs.mutations import CreateActivity, CreateProgram
 from modern_catalog.programs.mutations import UpdateSection
 from modern_catalog.programs.mutations import DeleteProgram, UpdateProgram
 from modern_catalog.programs.mutations import DeleteActivity, DeleteSection
 from modern_catalog.programs.mutations import UpdateActivity, CreateSection
-import graphene
 from modern_catalog.programs.models import Program, Section, Activity
 
 
@@ -28,25 +28,20 @@ class Query(graphene.ObjectType):
         return Program.objects.all()
 
     def resolve_activity(root, info, **kwargs):
-        id = kwargs.get('id')
         try:
-            return Activity.objects.get(pk=id)
+            return Activity.objects.get(pk=kwargs.get('id'))
         except Activity.DoesNotExist:
             return None
 
     def resolve_section(root, info, **kwargs):
-        id = kwargs.get('id')
-
         try:
-            return Section.objects.get(pk=id)
+            return Section.objects.get(pk=kwargs.get('id'))
         except Section.DoesNotExist:
             return None
 
     def resolve_program(root, info, **kwargs):
-        id = kwargs.get('id')
-
         try:
-            return Program.objects.get(pk=id)
+            return Program.objects.get(pk=kwargs.get('id'))
         except Program.DoesNotExist:
             return None
 

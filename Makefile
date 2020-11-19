@@ -6,7 +6,7 @@ dev-start:
 	@python manage.py loaddata programs
 	@gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
 dev-stop:
-	@docker-compose  --remove-orphans -v
+	@docker-compose --remove-orphans -v
 unittest:
 	@export DJANGO_ENVIRONMENT=test
 	@flake8 --max-line-length=88

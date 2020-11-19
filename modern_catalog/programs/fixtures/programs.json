@@ -76,5 +76,19 @@
       "sections": [2],
       "content": ""
     }
+  },
+  {
+    "model": "programs.activity",
+    "pk": 3,
+    "fields": {
+      "name": "6 minute mediation",
+      "sections": [2],
+      "choices": {
+        "How do you want to use mindfulness": [
+          { "name": "Increase focus", "selected": false },
+          { "name": "Reduce Stress", "selected": true }
+        ]
+      }
+    }
   }
 ]

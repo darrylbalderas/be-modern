@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import JSONField
 
 
 class Program(models.Model):
@@ -19,10 +20,6 @@ class Section(models.Model):
     order_index = models.IntegerField(null=True)
     programs = models.ManyToManyField(Program)
 
-    # program = models.ForeignKey(Program,
-    #                             related_name="sections",
-    #                             on_delete=models.CASCADE)
-
     def __str__(self):
         return self.name
 
@@ -32,12 +29,9 @@ class Section(models.Model):
 
 class Activity(models.Model):
     name = models.CharField(max_length=100)
-    content = models.TextField(blank=True)
+    choices = JSONField(blank=True, null=True, default=None)
+    content = models.TextField(blank=True, null=True)
     sections = models.ManyToManyField(Section)
-
-    # models.ForeignKey(Section,
-    #                             related_name="activities",
-    #                             on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
