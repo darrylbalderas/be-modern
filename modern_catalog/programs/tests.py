@@ -287,3 +287,66 @@ class TestPrograms(GraphQLTestCase):
         self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
+
+    def test_update_activity(self):
+        response = self.query('''
+                mutation updateActivity($id: Int!, $input: ActivityInput!) {
+                    updateActivity(id: $id, input: $input) {
+                        ok
+                        activity {
+                            id
+                            name
+                            content
+                        }
+                    }
+                }
+                ''',
+                              op_name='updateActivity',
+                              variables={
+                                  'id': 2,
+                                  'input': {
+                                      'name': '6 minute journal',
+                                  }
+                              })
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'updateActivity': {
+                    'ok': True,
+                    'activity': {
+                        'id': '2',
+                        'name': '6 minute journal',
+                        'content': ''
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_update_nonexisten_activity(self):
+        response = self.query('''
+                mutation updateActivity($id: Int!, $input: ActivityInput!) {
+                    updateActivity(id: $id, input: $input) {
+                        ok
+                        activity {
+                            id
+                            name
+                            content
+                        }
+                    }
+                }
+                    ''',
+                              op_name='updateActivity',
+                              variables={
+                                  'id': 100,
+                                  'input': {
+                                      'name': '6 minute journal',
+                                  }
+                              })
+        content = json.loads(response.content)
+        expected = {'data': {'updateActivity': {'ok': False, 'activity': None}}}
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)

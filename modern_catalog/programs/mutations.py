@@ -59,15 +59,20 @@ class UpdateActivity(graphene.Mutation):
 
     @staticmethod
     def mutate(root, info, id, input=None):
-        ok = False
-        activity_instance = Activity.objects.get(pk=id)
-        if activity_instance:
-            ok = True
+        try:
+            activity_instance = Activity.objects.get(pk=id)
+        except Activity.DoesNotExist:
+            return UpdateActivity(ok=False, activity=None)
+
+        if input.content:
             activity_instance.content = input.content
+
+        if input.name:
             activity_instance.name = input.name
-            activity_instance.save()
-            return UpdateActivity(ok=ok, Activity=activity_instance)
-        return UpdateActivity(ok=ok, Activity=None)
+
+        activity_instance.save()
+
+        return UpdateActivity(ok=True, activity=activity_instance)
 
 
 class DeleteActivity(graphene.Mutation):
