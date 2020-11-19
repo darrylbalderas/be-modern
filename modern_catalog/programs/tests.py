@@ -70,7 +70,7 @@ class TestPrograms(GraphQLTestCase):
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
 
-    def test_all_programs(self):
+    def test_programs(self):
         query = '''
             query {
                 programs {
@@ -150,6 +150,140 @@ class TestPrograms(GraphQLTestCase):
         content = json.loads(response.content)
 
         expected = {'data': {'activity': {'id': '1', 'name': 'Meditate'}}}
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_create_activity(self):
+        response = self.query('''
+            mutation createActivity($input: ActivityInput!) {
+                createActivity(input: $input) {
+                    ok
+                    activity {
+                        id
+                        name
+                        content
+                    }
+                }
+            }
+            ''',
+                              op_name='createActivity',
+                              input_data={
+                                  'name': 'Be vulnerable',
+                                  'content':
+                                  '<p> 3 things you love about yourself </p>',
+                                  'sections': [{
+                                      'id': 1
+                                  }]
+                              })
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'createActivity': {
+                    'ok': True,
+                    'activity': {
+                        'id': '3',
+                        'name': 'Be vulnerable',
+                        'content': '<p> 3 things you love about yourself </p>'
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_create_activity_with_unknown_section(self):
+        response = self.query('''
+                mutation createActivity($input: ActivityInput!) {
+                    createActivity(input: $input) {
+                        ok
+                        activity {
+                            id
+                            name
+                            content
+                        }
+                    }
+                }
+                ''',
+                              op_name='createActivity',
+                              input_data={
+                                  'name': 'Unknown',
+                                  'content':
+                                  '<p> Describe what it means to be alive </p>',
+                                  'sections': [{
+                                      'id': 100
+                                  }]
+                              })
+        content = json.loads(response.content)
+        expected = {'data': {'createActivity': {'ok': False, 'activity': None}}}
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_delete_activity(self):
+        response = self.query('''
+                mutation deleteActivity($id: Int!) {
+                    deleteActivity(id: $id) {
+                        ok
+                        activity {
+                            id
+                            name
+                            content
+                        }
+                    }
+                }
+                ''',
+                              op_name='deleteActivity',
+                              variables={'id': 2})
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'deleteActivity': {
+                    'ok': True,
+                    'activity': {
+                        'id': '2',
+                        'name': '5 minute journal',
+                        'content': ''
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+        response = self.query('''
+                query getActivity($id: Int!) {
+                    activity(id: $id) {
+                        id
+                        name
+                    }
+                }
+                ''',
+                              op_name='getActivity',
+                              variables={'id': 2})
+        content = json.loads(response.content)
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, {'data': {'activity': None}})
+
+    def test_delete_unknown_activity(self):
+        response = self.query('''
+                    mutation deleteActivity($id: Int!) {
+                        deleteActivity(id: $id) {
+                            ok
+                            activity {
+                                id
+                                name
+                                content
+                            }
+                        }
+                    }
+                    ''',
+                              op_name='deleteActivity',
+                              variables={'id': 100})
+        content = json.loads(response.content)
+        expected = {'data': {'deleteActivity': {'ok': False, 'activity': None}}}
         self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)

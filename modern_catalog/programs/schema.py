@@ -1,24 +1,8 @@
+from modern_catalog.programs.types import ActivityType, ProgramType, SectionType
+from modern_catalog.programs.mutations import CreateActivity, DeleteActivity
+from modern_catalog.programs.mutations import UpdateActivity
 import graphene
-from graphene_django import DjangoObjectType
 from modern_catalog.programs.models import Program, Section, Activity
-
-
-class ProgramType(DjangoObjectType):
-    class Meta:
-        model = Program
-        fields = "__all__"
-
-
-class SectionType(DjangoObjectType):
-    class Meta:
-        model = Section
-        fields = "__all__"
-
-
-class ActivityType(DjangoObjectType):
-    class Meta:
-        model = Activity
-        fields = "__all__"
 
 
 class Query(graphene.ObjectType):
@@ -31,38 +15,43 @@ class Query(graphene.ObjectType):
 
     def resolve_sections(root, info, **kwargs):
         # We can easily optimize query count in the resolve method
-        return Section.objects.select_related("program").all().order_by('order_index')
+        return Section.objects.all().order_by('order_index')
 
     def resolve_activities(root, info, **kwargs):
         # We can easily optimize query count in the resolve method
-        return Activity.objects.select_related("section").all()
+        return Activity.objects.all()
 
     def resolve_programs(root, info, **kwargs):
         return Program.objects.all()
 
     def resolve_activity(root, info, **kwargs):
         id = kwargs.get('id')
-        if id is not None:
+        try:
             return Activity.objects.get(pk=id)
-        return None
+        except Activity.DoesNotExist:
+            return None
 
     def resolve_section(root, info, **kwargs):
         id = kwargs.get('id')
 
-        if id is not None:
+        try:
             return Section.objects.get(pk=id)
-        return None
+        except Section.DoesNotExist:
+            return None
 
     def resolve_program(root, info, **kwargs):
         id = kwargs.get('id')
 
-        if id is not None:
+        try:
             return Program.objects.get(pk=id)
-        return None
-        # try:
-        #     return Program.objects.get(name=name)
-        # except Program.DoesNotExist:
-        #     return Program.objects.none()
+        except Program.DoesNotExist:
+            return None
 
 
-schema = graphene.Schema(query=Query)
+class Mutation(graphene.ObjectType):
+    create_activity = CreateActivity.Field()
+    update_activity = UpdateActivity.Field()
+    delete_activity = DeleteActivity.Field()
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
