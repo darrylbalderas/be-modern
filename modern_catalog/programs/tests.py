@@ -350,3 +350,42 @@ class TestPrograms(GraphQLTestCase):
         self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
+
+    def test_create_section(self):
+        response = self.query('''
+            mutation createSection($input: SectionInput!) {
+                createSection(input: $input) {
+                    ok
+                    section {
+                        id
+                        name
+                    }
+                }
+            }
+            ''',
+                              op_name='createSection',
+                              input_data={
+                                  'name': 'Conquering your inner self',
+                                  'description': '',
+                                  'orderIndex': 5,
+                                  'overviewImage':
+                                  'http://d111111abcdef8.cloudfront.net/image.jpg',
+                                  'programs': [{
+                                      'id': 1
+                                  }]
+                              })
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'createSection': {
+                    'ok': True,
+                    'section': {
+                        'id': '5',
+                        'name': 'Conquering your inner self',
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
