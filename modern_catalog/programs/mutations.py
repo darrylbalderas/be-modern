@@ -117,6 +117,38 @@ class CreateSection(graphene.Mutation):
         return CreateSection(ok=True, section=section_instance)
 
 
+class UpdateSection(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+        input = SectionInput(required=True)
+
+    ok = graphene.Boolean()
+    section = graphene.Field(SectionType)
+
+    @staticmethod
+    def mutate(root, info, id, input=None):
+        try:
+            section_instance = Section.objects.get(pk=id)
+        except Section.DoesNotExist:
+            return UpdateSection(ok=False, section=None)
+
+        if input.overview_image:
+            section_instance.overview_image = input.overview_image
+
+        if input.order_index:
+            section_instance.order_index = input.order_index
+
+        if input.description:
+            section_instance.description = input.description
+
+        if input.name:
+            section_instance.name = input.name
+
+        section_instance.save()
+
+        return UpdateSection(ok=True, section=section_instance)
+
+
 class DeleteSection(graphene.Mutation):
     class Arguments:
         id = graphene.Int(required=True)
