@@ -1,5 +1,5 @@
 from modern_catalog.programs.models import Activity, Program, Section
-from modern_catalog.programs.types import ActivityType, SectionType
+from modern_catalog.programs.types import ActivityType, ProgramType, SectionType
 import graphene
 
 
@@ -115,3 +115,35 @@ class CreateSection(graphene.Mutation):
         section_instance.save()
         section_instance.programs.set(programs)
         return CreateSection(ok=True, section=section_instance)
+
+
+class DeleteSection(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+
+    ok = graphene.Boolean()
+    section = graphene.Field(SectionType)
+
+    @staticmethod
+    def mutate(root, info, id):
+        try:
+            section_instance = Section.objects.get(pk=id)
+        except Section.DoesNotExist:
+            return DeleteSection(ok=False, section=None)
+        section_instance.delete()
+        section_instance.id = id
+        return DeleteSection(ok=True, section=section_instance)
+
+
+class CreateProgram(graphene.Mutation):
+    class Arguments:
+        input = ProgramInput(required=True)
+
+    ok = graphene.Boolean()
+    program = graphene.Field(ProgramType)
+
+    @staticmethod
+    def mutate(root, info, input=None):
+        program_instance = Program(name=input.name, description=input.description)
+        program_instance.save()
+        return CreateProgram(ok=True, program=program_instance)

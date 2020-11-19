@@ -389,3 +389,102 @@ class TestPrograms(GraphQLTestCase):
         self.maxDiff = None
         self.assertResponseNoErrors(response)
         self.assertEquals(content, expected)
+
+    def test_delete_section(self):
+        response = self.query('''
+                mutation deleteSection($id: Int!) {
+                    deleteSection(id: $id) {
+                        ok
+                        section {
+                            id
+                            name
+                        }
+                    }
+                }
+                ''',
+                              op_name='deleteSection',
+                              variables={'id': 2})
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'deleteSection': {
+                    'ok': True,
+                    'section': {
+                        'id': '2',
+                        'name': 'Learn to let go',
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+        response = self.query('''
+                query getSection($id: Int!) {
+                    section(id: $id) {
+                        id
+                        name
+                    }
+                }
+                ''',
+                              op_name='getSection',
+                              variables={'id': 2})
+        content = json.loads(response.content)
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, {'data': {'section': None}})
+
+    def test_delete_nonexisten_section(self):
+        response = self.query('''
+                    mutation deleteSection($id: Int!) {
+                        deleteSection(id: $id) {
+                            ok
+                            section {
+                                id
+                                name
+                            }
+                        }
+                    }
+                    ''',
+                              op_name='deleteSection',
+                              variables={'id': 100})
+        content = json.loads(response.content)
+        expected = {'data': {'deleteSection': {'ok': False, 'section': None}}}
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
+
+    def test_create_program(self):
+        response = self.query('''
+            mutation createProgram($input: ProgramInput!) {
+                createProgram(input: $input) {
+                    ok
+                    program {
+                        id
+                        name
+                        description
+                    }
+                }
+            }
+            ''',
+                              op_name='createProgram',
+                              input_data={
+                                  'name': 'Imposter syndrome',
+                                  'description': '',
+                              })
+        content = json.loads(response.content)
+        expected = {
+            'data': {
+                'createProgram': {
+                    'ok': True,
+                    'program': {
+                        'id': '3',
+                        'name': 'Imposter syndrome',
+                        'description': '',
+                    }
+                }
+            }
+        }
+        self.maxDiff = None
+        self.assertResponseNoErrors(response)
+        self.assertEquals(content, expected)
