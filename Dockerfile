@@ -18,7 +18,7 @@ COPY requirements-test.txt .
 RUN pip install -r requirements-test.txt
 ENV PATH=/root/.local/bin:$PATH
 ENV DJANGO_ENVIRONMENT=test
-RUN python manage.py test --keepdb
+RUN flake8 --max-line-length=88 && python manage.py test --keepdb
 
 
 FROM python:3.9-slim-buster as final
@@ -28,6 +28,5 @@ COPY --from=builder /app/manage.py /app/manage.py
 WORKDIR /app
 EXPOSE 8000
 ENV PATH=/root/.local/bin:$PATH
-# ENTRYPOINT gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
-ENTRYPOINT gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
+ENTRYPOINT gunicorn modern_catalog.asgi:application -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
 

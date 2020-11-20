@@ -81,13 +81,20 @@ DATABASES_AVAILABLE = {
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
     },
+    'development': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': os.environ.get('DJANGO_DEVELOPMENT_DATABASE', 'localhost'),
+    },
     'test': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
 }
 
-database = os.environ.get('DJANGO_ENVIRONMENT', 'main')
+database = os.environ.get('DJANGO_ENVIRONMENT', 'development')
 DATABASES = {'default': DATABASES_AVAILABLE[database]}
 
 # Password validation

@@ -12,13 +12,15 @@ services:
       - POSTGRES_DB=programs
     volumes:
       - db:/var/lib/postgresql/data/ # persist data even if container shuts down
-  # backend:
-  #   build: .
-  #   container_name: be-modern
-  #   ports:
-  #     - 8000:8000
-  #   depends_on:
-  #     - database
-
+  backend:
+    build: .
+    container_name: test-be
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+    environment:
+      - DJANGO_DEVELOPMENT_DATABASE=database
+      - DJANGO_ENVIRONMENT=development
 volumes:
-    db: ~
+  db: ~
