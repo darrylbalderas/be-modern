@@ -21,6 +21,103 @@
      make dev-start
      ```
 
+## Queries and Mutations
+
+```markdown
+# Get programs
+
+            query {
+                programs {
+                    id
+                    name
+                    description
+                    sections {
+                      id
+                    }
+                }
+            }
+
+# Get activities
+
+            query {
+                activities {
+                    id
+                    name
+                    content
+                    choices
+                }
+            }
+
+# Get sections
+
+            query {
+                sections {
+                    id
+                    name
+                    description
+                    order_index
+                    overview_image
+                    activities {
+                      id
+                    }
+                }
+            }
+
+# Get single section
+
+            query {
+                section(id: $id) {
+                    id
+                    name
+                    description
+                    order_index
+                    overview_image
+                    activities {
+                      id
+                    }
+                }
+            }
+
+# Get single activity
+
+            query {
+                activity(id: $id) {
+                    id
+                    name
+                    content
+                    choices
+                }
+                }
+            }
+
+# Create program
+
+            query {
+                program(id: $id) {
+                    id
+                    name
+                    description
+                    sections {
+                      id
+                    }
+                }
+            }
+
+# Create section
+
+            query {
+                section(id: $id) {
+                    id
+                    name
+                }
+            }
+
+```
+
+## Simple Architecture Diagram
+
+![api diagram](simple_programs_api.png)
+
 ## Questions
 
 - Can activities be repeated in multiple sections ?
@@ -42,3 +139,13 @@
 - ['Graphql and Django'](https://stackabuse.com/building-a-graphql-api-with-django/)
 - ['Graphene and Django'](https://www.fullstacklabs.co/blog/django-graphene-rest-graphql)
 - ['JWT, Django, and Graphql'](https://django-graphql-jwt.domake.io/en/latest/index.html)
+- ['Cloud Diagrams'](https://diagrams.mingrammer.com/docs/getting-started/examples)
+
+## TODOs
+
+- Create terragrunt folder for creating aws infrastructure such as database, servers, s3 buckets, etc
+- Remove name from activity model
+- Research better way of storing activity choices
+- Better filtering when requesting programs, sections or activities
+- Add authentication layer (might not need it since seems these would be api would be access internally)
+- Research Graphene Relay

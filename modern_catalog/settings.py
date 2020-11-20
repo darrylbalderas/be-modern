@@ -35,9 +35,14 @@ GRAPHENE = {"SCHEMA": "modern_catalog.schema.schema"}
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes',
-    'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
-    'modern_catalog.programs', 'graphene_django'
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'graphene_django',
+    'modern_catalog.programs',
 ]
 
 MIDDLEWARE = [
