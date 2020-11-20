@@ -19,7 +19,6 @@
 
    - ```bash
      make dev-start
-     ``
      ```
 
 ## Questions
@@ -37,9 +36,9 @@
 
 - ['Build small docker images'](https://towardsdatascience.com/how-to-build-slim-docker-images-fast-ecc246d7f4a7)
 - ['Django and Uvicorn'](https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/uvicorn/)
-- [](https://www.uvicorn.org/)
-- [](https://docs.docker.com/compose/django/)
-- [](https://docs.graphene-python.org/projects/django/en/latest/testing/)
-- [](https://stackabuse.com/building-a-graphql-api-with-django/)
-- [](https://www.fullstacklabs.co/blog/django-graphene-rest-graphql)
-- [](https://django-graphql-jwt.domake.io/en/latest/index.html)
+- ['Uvicorn documentation'](https://www.uvicorn.org/)
+- ['Quick django docker documentation'](https://docs.docker.com/compose/django/)
+- ['Unitest with django'](https://docs.graphene-python.org/projects/django/en/latest/testing/)
+- ['Graphql and Django'](https://stackabuse.com/building-a-graphql-api-with-django/)
+- ['Graphene and Django'](https://www.fullstacklabs.co/blog/django-graphene-rest-graphql)
+- ['JWT, Django, and Graphql'](https://django-graphql-jwt.domake.io/en/latest/index.html)
