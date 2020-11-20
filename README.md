@@ -2,16 +2,25 @@
 
 ## Instructions
 
-```bash
-python3 -m venv graphdjango
-source graphdjango/bin/activate
-pip install -r requirements.txt
-django-admin startproject modern_catalog .
-django-admin startapp programs
-python manage.py makemigrations
-python manage.py migrate
-python manage.py loaddata programs
-```
+1. Create and start virtual environment
+
+   - ```bash
+     python3 -m venv be-modern
+     source be-modern/bin/activate
+     ```
+
+2. Install dependencies
+
+   - ```bash
+     pip install -r requirements.txt
+     ```
+
+3. Start development server
+
+   - ```bash
+     make dev-start
+     ``
+     ```
 
 ## Questions
 
